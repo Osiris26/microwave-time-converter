@@ -1,52 +1,45 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Microwave Wattage Time Converter - Adjust Cooking Times Easily</title>
-  <meta name="description" content="Convert microwave cooking times between different wattages. Go from 700W to 1000W in seconds. Simple tool to help you cook perfectly every time.">
-  <meta name="keywords" content="microwave time converter, 700w to 1000w microwave, wattage cooking calculator, microwave power conversion">
-  
-  <meta name="description" content="Convert microwave cooking time between different wattages like 700W to 1000W.">
-  <style>
-    body { font-family: Arial; padding: 2rem; background: #f2f2f2; max-width: 500px; margin: auto; }
-    input { padding: 10px; margin: 10px 0; width: 100%; }
-    button { padding: 10px 20px; background: #007BFF; color: white; border: none; cursor: pointer; }
-    .result { margin-top: 20px; font-size: 1.2em; font-weight: bold; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microwave Wattage Time Converter</title>
+    <meta name="description" content="Convert microwave cooking times between different wattages.">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Microwave Time Converter</h1>
-  <p>Convert cooking time based on your microwave’s wattage.</p>
+    <h1>Microwave Wattage Converter</h1>
+    <p>Enter cooking time and wattages to adjust:</p>
+    
+    <label for="time">Original Time (in seconds):</label><br>
+    <input type="number" id="time" placeholder="e.g., 120"><br>
+    
+    <label for="fromWatt">From Wattage:</label><br>
+    <input type="number" id="fromWatt" placeholder="e.g., 700"><br>
+    
+    <label for="toWatt">To Wattage:</label><br>
+    <input type="number" id="toWatt" placeholder="e.g., 1000"><br>
+    
+    <button onclick="convert()">Convert</button>
+    
+    <div class="result" id="result"></div>
 
-  <label>Original Cooking Time (minutes):</label>
-  <input type="number" id="time" placeholder="e.g., 3.5" step="0.1" />
-
-  <label>Original Microwave Wattage:</label>
-  <input type="number" id="originalWatt" placeholder="e.g., 700" />
-
-  <label>Your Microwave Wattage:</label>
-  <input type="number" id="yourWatt" placeholder="e.g., 1000" />
-
-  <button onclick="convertTime()">Convert</button>
-
-  <div class="result" id="result"></div>
-
-  <script>
-    function convertTime() {
-      const time = parseFloat(document.getElementById('time').value);
-      const originalWatt = parseFloat(document.getElementById('originalWatt').value);
-      const yourWatt = parseFloat(document.getElementById('yourWatt').value);
-
-      if (!time || !originalWatt || !yourWatt) {
-        document.getElementById('result').textContent = "Please fill in all values correctly.";
-        return;
+    <script>
+      function convert() {
+        var time = parseFloat(document.getElementById('time').value);
+        var fromWatt = parseFloat(document.getElementById('fromWatt').value);
+        var toWatt = parseFloat(document.getElementById('toWatt').value);
+        
+        if (isNaN(time) || isNaN(fromWatt) || isNaN(toWatt) || fromWatt <= 0 || toWatt <= 0) {
+          document.getElementById('result').innerText = "Please enter valid numbers.";
+          return;
+        }
+        
+        var adjustedTime = (time * fromWatt) / toWatt;
+        document.getElementById('result').innerText = "Adjusted Time: " + adjustedTime.toFixed(2) + " seconds";
       }
-
-      const newTime = (time * originalWatt) / yourWatt;
-      const rounded = Math.round(newTime * 100) / 100;
-
-      document.getElementById('result').textContent = `Use ${rounded} minutes in your microwave.`;
-    }
-  </script>
+    </script>
 </body>
 </html>
